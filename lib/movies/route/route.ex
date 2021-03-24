@@ -21,15 +21,24 @@ defmodule Movies.Route.Route do
     |> build_response(conn)
   end
 
+  get "/movie/:code" do
+    conn.params
+    |> Map.get("code")
+    |> String.to_integer
+    |> Controller.get_movie_by_code()
+    |> build_response(conn)
+  end
+
   post "/movie" do
-    get_movie(conn.body_params, "save")
+    body = conn.body_params
+    %Movie{code: body["code"], title: body["title"],author: body["author"]}
     |> Controller.save_movie()
     |> build_response(conn)
   end
 
-  delete "/movie/:id" do
+  delete "/movie/:code" do
     conn.params
-    |> Map.get("id")
+    |> Map.get("code")
     |> String.to_integer
     |> Controller.delete_movie()
     |> build_response(conn)
@@ -43,17 +52,12 @@ defmodule Movies.Route.Route do
     |> send_resp(status, body)
   end
 
-  def build_response(response, conn) do
+  def build_response({:ok, response}, conn) do
     build_response(%{status: 200, body: Poison.encode!(response)}, conn)
   end
 
-  def get_movie(body, op) do
-    case op do
-      "save" -> %Movie{code: body["code"], title: body["title"],author: body["author"]}
-      "delete" -> %Movie{id: body["id"]}
-      _ -> %Movie{}
-    end
-
+  def build_response({:error, response}, conn) do
+    build_response(%{status: 400, body: Poison.encode!(response)}, conn)
   end
 
 end

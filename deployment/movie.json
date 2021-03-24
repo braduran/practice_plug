@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ffb2483a-c1a5-4cef-87c8-3fcbaee6fa43",
+		"_postman_id": "338458fe-462c-45a5-8dfc-95cd05ccacbb",
 		"name": "movie",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,7 +9,13 @@
 			"name": "Health movies",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:8085/api/health",
 					"protocol": "http",
@@ -38,7 +44,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"code\": 30,\n\t\"title\": \"Pequeños secretos\",\n\t\"author\": \"Rami Malek\"\n}"
+					"raw": "{\n\t\"code\": 1,\n\t\"title\": \"Pequeños secretos\",\n\t\"author\": \"Rami Malek\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8085/api/movie",
@@ -76,6 +82,27 @@
 			"response": []
 		},
 		{
+			"name": "Consulta movie code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8085/api/movie/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"api",
+						"movie",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Borrar movie",
 			"request": {
 				"method": "DELETE",
@@ -85,7 +112,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8085/api/movie/13",
+					"raw": "http://localhost:8085/api/movie/22166",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -94,7 +121,7 @@
 					"path": [
 						"api",
 						"movie",
-						"13"
+						"22166"
 					]
 				}
 			},
